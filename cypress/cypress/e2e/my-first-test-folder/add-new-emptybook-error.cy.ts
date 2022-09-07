@@ -15,6 +15,7 @@ describe('As a user I cannot add a new book with no information', () => {
     cy.intercept(ApiRoutesBooks.AddBook).as('addBook');
 
     // add the new book
+    cy.url().should('contain', '.net/book').then(() => {
     cy.get(AddSelectors.AddBookButton).click();
 
     // Check that the request to add the book returns a 400 status code
@@ -25,19 +26,6 @@ describe('As a user I cannot add a new book with no information', () => {
 
     // check validation error appears
     cy.get('.validation-error');
-
-    // // check book has been added
-    // // cy.get('[data-id="to-search-page-from-add-page-button"]').click();
-    // // won't work because of API stuff from edit
-
-    // cy.url().should('contain', '.net/book/').then(() => {
-    // // cy.wait(5000);
-    //   cy.get('[data-id="to-search-page-from-add-page-button"]').click();
-
-    //   // check by visiting final page
-    //   // cy.visit('https://audacia-training-automationtesting-ui.azurewebsites.net/');
-    //   cy.get(AddSelectors.LastPageButton).click();
-    //   cy.get(AddSelectors.MostRecentBook).should('be.visible').contains('Brand new book');
-    // });
+  });
   });
 });
