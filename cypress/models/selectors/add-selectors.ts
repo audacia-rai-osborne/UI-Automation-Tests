@@ -20,4 +20,8 @@ export default class AddSelectors {
   static readonly MostRecentBook = 'tr > :nth-child(1)';
 
   static readonly SearchedCategory = '#vs1__option-0';
+
+  static readonly ValidationError = '.validation-error';
+
+  static readonly SearchPageReturn = '[data-id="to-search-page-from-update-book-button"]';
 }

@@ -3,8 +3,20 @@ import ApiRoutesBooks from '../../../models/routes';
 import AddSelectors from '../../../models/selectors/add-selectors';
 import DeleteSelectors from '../../../models/selectors/delete-selectors';
 
-const bookId = null;
+let bookId = null;
 describe('As a user I can add a book', () => {
+  beforeEach(() => {
+    cy.visit(Cypress.config().baseUrl);
+    cy.addBookBefore('Name', 'Description', 'Author', 2020, '2022-08-18T10:19:23.968Z', true, 1).then((response) => { bookId = response })
+  });
+  // afterEach(() => {
+  //   if(bookId === null){
+  //     cy.deleteBookAfter(bookId);
+  //   }else{
+  //     cy.log('nothing to delete')
+  //     return  
+  //   }
+  // });
   it('Allows a user to add a book', () => {
   // visit homepage of book website
     cy.visit(Env.homeURL);
@@ -47,16 +59,14 @@ describe('As a user I can add a book', () => {
     });
 
     cy.url().should('contain', '.net/book/').then(() => {
-      cy.get('[data-id="to-search-page-from-update-book-button"]').click();
+      cy.get(AddSelectors.SearchPageReturn).click();
 
       // check by visiting final page
       // cy.visit('https://audacia-training-automationtesting-ui.azurewebsites.net/');
       cy.get(AddSelectors.LastPageButton).click();
       cy.get(AddSelectors.MostRecentBook).should('be.visible').contains('Brand new book');
-
-      // delete book to return to original form
-      cy.deleteBook();
     });
+    cy.deleteBook()
   });
 });
 

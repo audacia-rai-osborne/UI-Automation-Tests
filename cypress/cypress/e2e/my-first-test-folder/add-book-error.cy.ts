@@ -46,19 +46,7 @@ describe('As a user I can add a new book as long as I use the form correctly', (
     });
 
     // check validation error appears
-    cy.get('.validation-error');
+    cy.get(AddSelectors.ValidationError).contains('Published Year is required');
 
-    // // check book has been added
-    // // cy.get('[data-id="to-search-page-from-add-page-button"]').click();
-    // // won't work because of API stuff from edit
-
-    // cy.url().should('contain', '.net/book/').then(() => {
-    //   cy.get('[data-id="to-search-page-from-add-page-button"]').click();
-
-    //   // check by visiting final page
-    //   // cy.visit('https://audacia-training-automationtesting-ui.azurewebsites.net/');
-    //   cy.get(AddSelectors.LastPageButton).click();
-    //   cy.get(AddSelectors.MostRecentBook).should('be.visible').contains('Brand new book');
-    // });
   });
 });

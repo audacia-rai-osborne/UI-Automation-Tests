@@ -13,34 +13,19 @@ describe('As a user I can delete a book', () => {
   // });
 
   it('Allows a user to delete a book', () => {
-  // delete book
-    // cy.deleteSpecifiedBook(bookId);
-    // visit homepage of book website
-    cy.visit(Env.homeURL);
+     // Make sure the request to delete the book is intercepted
+     const toIntercept = 'https://audacia-training-automationtesting-api.azurewebsites.net/book/${bookId}';
+     cy.intercept(toIntercept).as('deleteBook');
 
-    // Click on last button
-    cy.get(DeleteSelectors.LastPageButton).click();
+     // delete book
+     cy.deleteSpecifiedBook(bookId);
+ 
+     // // Check that the request to edit the book returns a 200 status code
+     cy.wait('@deleteBook').then((intercept) => {
+       const { statusCode } = intercept.response;
+       expect(statusCode).to.equal(200);
+     });
 
-    // delete specified book
-    cy.get(DeleteSelectors.DeleteBookDetails(bookId)).click();
-
-    // Make sure the request to delete the book is intercepted
-    // cy.intercept('DELETE', 'https://audacia-training-automationtesting-api.azurewebsites.net/book/').as('deleteBook');
-    const toIntercept = 'https://audacia-training-automationtesting-api.azurewebsites.net/book/${bookId}';
-    cy.intercept(ApiRoutesBooks.DeleteBook)
-    cy.intercept(toIntercept).as('deleteBook');
-
-    // click on pop up to confirm delete
-    cy.get('.action-button').contains('Confirm').click();
-
-    // // Check that the request to edit the book returns a 200 status code
-    cy.wait('@deleteBook').then((intercept) => {
-      const { statusCode } = intercept.response;
-      expect(statusCode).to.equal(200);
-    });
-
-    // Restore to original
-    // have to add a new book
   });
 });
 

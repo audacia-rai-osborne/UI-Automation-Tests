@@ -11,6 +11,7 @@ describe('As a user I can go to the second page of books', () => {
 
     // Check second page has been reached
     cy.get(SecondPageSelectors.ThirdPageButton).should('be.visible');
+    cy.get(SecondPageSelectors.SecondPageMiddleButton).contains('2')
 
     //Return to first page 
     cy.get(SecondPageSelectors.FirstPageButton).click()

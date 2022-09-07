@@ -29,6 +29,7 @@ import ApiRoutesBooks from '../../models/routes';
 import AddSelectors from '../../models/selectors/add-selectors';
 import DeleteSelectors from '../../models/selectors/delete-selectors';
 import HomeSelectors from '../../models/selectors/home-selectors';
+import SearchSelectors from '../../models/selectors/search-selectors';
 import ViewSelectors from '../../models/selectors/view-selectors';
 
 // command to add a book
@@ -129,7 +130,7 @@ Cypress.Commands.add('deleteBook', () => {
   cy.get(DeleteSelectors.DeleteMostRecentBook).click();
 
   // click on pop up to confirm delete
-  cy.get('.action-button').contains('Confirm').click();
+  cy.get(DeleteSelectors.ConfirmButton).contains('Confirm').click();
 });
 
 Cypress.Commands.add('openFirstBook', () => {
@@ -166,7 +167,7 @@ Cypress.Commands.add('deleteSpecifiedBook', (bookId: string) => {
   cy.get(DeleteSelectors.DeleteBookDetails(bookId)).click();
 
   // click on pop up to confirm delete
-  cy.get('.action-button').contains('Confirm').click();
+  cy.get(DeleteSelectors.ConfirmButton).contains('Confirm').click();
 });
 
 Cypress.Commands.add('deleteBookAfter', (bookId: string) => {
@@ -183,3 +184,24 @@ Cypress.Commands.add('deleteBookAfter', (bookId: string) => {
     },
   });
 });
+
+Cypress.Commands.add('searchBook', (title: string)=> {
+   // visit homepage of book website
+   cy.visit(Env.homeURL);
+
+   // enter title to search by
+   cy.get(SearchSelectors.TitleSearchBox).type(title);
+
+       // click search button
+       cy.get(SearchSelectors.SearchButton).click();
+
+       // check it is visible
+    cy.get(SearchSelectors.SearchedBook).should('be.visible').contains('Author');
+
+    // clear search
+    cy.get(SearchSelectors.ClearSearch).click();
+
+      // check search is cleared
+      cy.get(SearchSelectors.TitleSearchBox).should('have.value', '');
+}
+)

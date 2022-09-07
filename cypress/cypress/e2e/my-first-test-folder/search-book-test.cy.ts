@@ -14,28 +14,17 @@ describe('As a user I can search for a book using the title', () => {
   });
 
   it('Allows a user to search for a books name', () => {
-    // visit homepage of book website
-    cy.visit(Env.homeURL);
-
-    // enter title to search by
-    cy.get(SearchSelectors.TitleSearchBox).type('Name');
-
     // Make sure the request to search for the book is intercepted
+    cy.log(bookId)
     cy.intercept(ApiRoutesBooks.SearchBook).as('searchBook');
 
-    // click search button
-    cy.get(SearchSelectors.SearchButton).click();
+    // search for book of given title
+    cy.searchBook('Name');
 
     // Check that the request to search for the book returns a 200 status code
     cy.wait('@searchBook').then((intercept) => {
       const { statusCode } = intercept.response;
       expect(statusCode).to.equal(200);
     });
-
-    // check it is visible
-    cy.get(SearchSelectors.SearchedBook).should('be.visible').contains('Author');
-
-    // clear search
-    cy.get(SearchSelectors.ClearSearch).click();
   });
 });

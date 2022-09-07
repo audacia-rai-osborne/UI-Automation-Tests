@@ -6,4 +6,6 @@ export default class DeleteSelectors {
   static DeleteBookDetails(bookId: string): string {
     return `[data-id = "delete-book-from-search-table_${bookId}"]`;
   }
+
+  static readonly ConfirmButton = '.action-button';
 }

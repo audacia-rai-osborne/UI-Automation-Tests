@@ -25,7 +25,12 @@ describe('As a user I cannot add a new book with no information', () => {
     });
 
     // check validation error appears
-    cy.get('.validation-error');
+    cy.get(AddSelectors.ValidationError).contains('Title is required');
+    cy.get(AddSelectors.ValidationError).contains('Description is required');
+    cy.get(AddSelectors.ValidationError).contains('Author is required');
+    cy.get(AddSelectors.ValidationError).contains('Published Year is required');
+    cy.get(AddSelectors.ValidationError).contains('Available From is required');
+    cy.get(AddSelectors.ValidationError).contains('Book Category is required');
   });
   });
 });
