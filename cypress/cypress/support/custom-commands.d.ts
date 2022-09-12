@@ -25,5 +25,7 @@ declare namespace Cypress {
     addBook(): Chainable<Element>
 
     searchBook(title: string): Chainable<Element>
+
+    bookSearchAPI(bookId: string): Chainable<Element>
   }
 }

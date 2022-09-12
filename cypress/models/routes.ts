@@ -8,4 +8,6 @@ export default class ApiRoutesBooks {
   static readonly DeleteBook = `${Env.BaseUrlApi}book/`;
 
   static readonly SearchBook = `${Env.BaseUrlApi}book/search`;
+
+  static readonly GetBook = `${Env.BaseUrlApi}book/`;
 }

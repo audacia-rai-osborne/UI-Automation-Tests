@@ -20,6 +20,7 @@ export default defineConfig({
   env: {
     USERNAME: 'username',
     PASSWORD: 'password',
+    BASE_URL:  'https://audacia-training-automationtesting-ui.azurewebsites.net/',
     LOGIN_URL: 'https://audacia-training-automationtesting-ui.azurewebsites.net/',
     BASE_URL_API: 'https://audacia-training-automationtesting-api.azurewebsites.net/',
   },

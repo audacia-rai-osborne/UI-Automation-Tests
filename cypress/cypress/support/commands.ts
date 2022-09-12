@@ -176,7 +176,7 @@ Cypress.Commands.add('deleteBookAfter', (bookId: string) => {
     method: 'DELETE',
 
     // This is where you state the url of the API request
-    url: `${ApiRoutesBooks.DeleteBook}/${bookId}`,
+    url: `${ApiRoutesBooks.DeleteBook}${bookId}`,
 
     // This gets the access token of the current login session
     auth: {
@@ -205,3 +205,20 @@ Cypress.Commands.add('searchBook', (title: string)=> {
       cy.get(SearchSelectors.TitleSearchBox).should('have.value', '');
 }
 )
+
+Cypress.Commands.add('bookSearchAPI', (bookId: string) => {
+  cy.request({
+    // This is where you state the type of API that is being called
+    method: 'GET',
+
+    // This is where you state the url of the API request
+    url: ApiRoutesBooks.GetBook+bookId,
+
+    // The API request body goes here
+   
+    // This gets the access token of the current login session
+    auth: {
+      bearer: '',
+    },
+  }).then((response) => response.status);
+});
